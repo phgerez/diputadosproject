@@ -149,7 +149,7 @@ const SemicircularChart = () => {
         </DialogFooter>
       </Dialog>
     <div className='bg-white'>
-      <Typography variant="h1" className='text-black text-center max-w-[70%] mx-auto mb-10'>Votos de Diputados por la "Ley Ómnibus"</Typography>
+      <Typography variant="h1" className='text-black text-center max-w-[70%] mx-auto mb-10'>Votos de Diputados por la &quot;Ley Ómnibus&quot;</Typography>
       {/*--gráfico--*/}
       <div className='parent relative w-full lg:w-[50%] mx-auto'>
         <Doughnut data={data} options={options} ref={chartRef}/>
