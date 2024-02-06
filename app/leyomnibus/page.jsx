@@ -30,7 +30,7 @@ const SemicircularChart = () => {
     { name: 'Buenos Aires Libre', positivos: 2, negativos: 0, ausentes: 0, logo: "https://upload.wikimedia.org/wikipedia/commons/d/d6/Buenos_Aires_Libre.png" },
     { name: 'Avanza Libertad', positivos: 1, negativos: 0, ausentes: 0, logo: "https://upload.wikimedia.org/wikipedia/commons/7/7b/AvanzaLibertadLogo2022.png" },
     { name: 'La Unión Mendocina', positivos: 1, negativos: 0, ausentes: 0, logo: "https://upload.wikimedia.org/wikipedia/commons/1/11/La_Union_Mendocina.svg" },
-    { name: 'Unión Cívica Radical', positivos: 37, negativos: 2, ausentes: 0, logo: "https://upload.wikimedia.org/wikipedia/commons/d/d7/Ucr_modern_logo.svg" },
+    { name: 'Unión Cívica Radical', positivos: 32, negativos: 2, ausentes: 0, logo: "https://upload.wikimedia.org/wikipedia/commons/d/d7/Ucr_modern_logo.svg" },
     { name: 'Hacemos Coalición Federal', positivos: 18, negativos: 4, ausentes: 1, logo: "https://upload.wikimedia.org/wikipedia/commons/f/f8/Hacemos_Coalicion_Federal_Logo.png" },
     { name: 'Innovación Federal', positivos: 9, negativos: 0, ausentes: 0, logo: "https://upload.wikimedia.org/wikipedia/commons/1/15/Innovaci%C3%B3n_Federal.png" },
     { name: 'Por Santa Cruz', positivos: 1, negativos: 1, ausentes: 0, logo: "https://upload.wikimedia.org/wikipedia/commons/7/7a/SER_Santa_Cruz_logo.png" },
@@ -86,7 +86,7 @@ const SemicircularChart = () => {
   setTotalVotesByParty(totalVotesByParty);
 }, [parties]);
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const options = {
     circumference: 180,
@@ -127,13 +127,16 @@ const SemicircularChart = () => {
 
   return (
     <>
-    <Dialog open={open} className='max-h-[50vh] lg:max-h-full overflow-y-auto'>
-        <DialogHeader>Desglose de votos por partido</DialogHeader>
+    <Dialog open={open} className='max-h-[50vh] lg:max-h-full'>
+        <DialogHeader className="sticky top-0 text-base md:text-2xl justify-between">Desglose de votos por partido
+        <Button variant="outlined" color='black' onClick={()=> setOpen(!open)}>
+            <span>Cerrar</span>
+          </Button></DialogHeader>
         <DialogBody>
         <p className='text-black hidden'>Así votaron los diputados:</p>
         {partyVotesInfo && (
-        <div> 
-          <p className='font-bold uppercase mb-4'>{`votos ${partyVotesInfo.type}`}</p>
+        <div className='parent relative overflow-y-scroll h-[200px] md:h-full'> 
+          <div className='font-bold uppercase mb-4 sticky top-0 bg-white'><p >{`votos ${partyVotesInfo.type}`}</p></div>
           <ul>
             {Object.entries(partyVotesInfo.votesByParty).map(([party, votes]) => (
               <li className="mb-2" key={party}>{`${party}: ${votes}`}</li>
@@ -143,13 +146,11 @@ const SemicircularChart = () => {
       )}
         </DialogBody>
         <DialogFooter>
-          <Button variant="outlined" color='black' onClick={()=> setOpen(!open)}>
-            <span>Cerrar</span>
-          </Button>
+        <p className='text-black hidden'>Votos</p>
         </DialogFooter>
       </Dialog>
     <div className='bg-white'>
-      <Typography variant="h1" className='text-black text-center max-w-[70%] mx-auto mb-10'>Votos de Diputados por la &quot;Ley Ómnibus&quot;</Typography>
+      <Typography variant="h1" className='text-black text-center max-w-[70%] mx-auto mb-10 max-md:text-[30px] pt-5'>Votos de Diputados por la &quot;Ley Ómnibus&quot;</Typography>
       {/*--gráfico--*/}
       <div className='parent relative w-full lg:w-[50%] mx-auto'>
         <Doughnut data={data} options={options} ref={chartRef}/>
@@ -164,7 +165,7 @@ const SemicircularChart = () => {
               </div>
             <label className='text-black font-bold uppercase mb-4'>{party.name}:</label>
             <div className='w-full'>
-            <Input label="positivos" value={party.positivos}
+            <Input label="Positivos" value={party.positivos}
                 success
                 readOnly
                 className='text-black border border-black cursor-not-allowed'/>

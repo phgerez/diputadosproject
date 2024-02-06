@@ -157,29 +157,30 @@ const SemicircularChart = () => {
 
   return (
     <>
-      <Dialog open={open} className='max-h-[50vh] lg:max-h-full overflow-y-auto'>
-        <DialogHeader>Desglose de votos por partido</DialogHeader>
+      <Dialog open={open} className='max-h-[50vh] lg:max-h-full'>
+        <DialogHeader className="sticky top-0 text-base md:text-2xl justify-between">Desglose de votos por partido
+        <Button variant="outlined" color='black' onClick={()=> setOpen(!open)}>
+            <span>Cerrar</span>
+          </Button></DialogHeader>
         <DialogBody>
-          <p className='text-black hidden'>Así votaron los diputados:</p>
-          {partyVotesInfo && (
-            <div>
-              <p className='font-bold uppercase mb-4'>{`votos ${partyVotesInfo.type}`}</p>
-              <ul>
-                {Object.entries(partyVotesInfo.votesByParty).map(([party, votes]) => (
-                  <li className="mb-2" key={party}>{`${party}: ${votes}`}</li>
-                ))}
-              </ul>
-            </div>
-          )}
+        <p className='text-black hidden'>Así votaron los diputados:</p>
+        {partyVotesInfo && (
+        <div className='parent relative overflow-y-scroll h-[200px] md:h-full'> 
+          <div className='font-bold uppercase mb-4 sticky top-0 bg-white'><p >{`votos ${partyVotesInfo.type}`}</p></div>
+          <ul>
+            {Object.entries(partyVotesInfo.votesByParty).map(([party, votes]) => (
+              <li className="mb-2" key={party}>{`${party}: ${votes}`}</li>
+            ))}
+          </ul>
+        </div>
+      )}
         </DialogBody>
         <DialogFooter>
-          <Button variant="outlined" color='black' onClick={() => setOpen(!open)}>
-            <span>Cerrar</span>
-          </Button>
+        <p className='text-black hidden'>Votos</p>
         </DialogFooter>
       </Dialog>
       <div className='bg-white'>
-        <Typography variant="h1" className='text-black text-center'>Gráfico de Cámara de Diputados</Typography>
+        <Typography variant="h1" className='text-black text-center max-w-[70%] mx-auto mb-10 max-md:text-[30px] pt-5'>Gráfico de Cámara de Diputados</Typography>
           <Link href="/leyomnibus" className="flex w-full my-5">
             <Button className="mx-auto">Ver votos de Ley Omnibus</Button>
           </Link>
